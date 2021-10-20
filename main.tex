@@ -1,0 +1,291 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{amsmath,amssymb,esint,amscd,xspace,fancyhdr,color,authblk,srcltx,fontenc,bbm,mathtools,tkz-euclide,cases}
+\usepackage[charter]{mathdesign}
+\usepackage[utf8]{vietnam}
+\setcounter{MaxMatrixCols}{30} %jump between tex and dvi, used for kile
+\usepackage{commath}
+\usepackage{enumerate}
+%\usepackage[notcite,notref]{showkeys}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{refcheck}%To check unused bibliography entries.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{mathrsfs}
+\usepackage{cite}
+\setlength{\oddsidemargin}{-0.05in}
+\setlength{\evensidemargin}{-0.05in}
+\setlength{\textwidth}{16cm}
+\textheight=24.15cm
+\voffset=-2truecm
+%\hoffset=-0.6truecm
+\newtheorem{theorem}{Định lý}[section]
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{corollary}[theorem]{Hệ quả}
+\newtheorem{definition}[theorem]{Định nghĩa}
+\newtheorem{lemma}[theorem]{Bổ đề}
+\newtheorem{example}[theorem]{Ví dụ}
+\newtheorem{exercise}[theorem]{Bài tập}
+\newtheorem{proposition}[theorem]{Mệnh đề}
+\newtheorem{remark}[theorem]{Nhận xét}
+\newenvironment{proof}[1][Proof]{\textbf{#1.} }{\hfill\rule{0.5em}{0.5em}}
+{\catcode`\@=11\global\let\AddToReset=\@addtoreset}
+\AddToReset{equation}{section}
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+\AddToReset{theorem}{section}
+\renewcommand{\thetheorem}{\thesection.\arabic{theorem}}
+\renewcommand{\thelemma}{\thesection.\arabic{thelemma}}
+\renewcommand{\theproposition}{\thesection.\arabic{theproposition}}
+\renewcommand{\thecorollary}{\thesection.\arabic{thecorollary}}
+\newcommand{\hoac}[1]{
+	\left[\begin{aligned}#1\end{aligned}\right.}
+\newcommand{\heva}[1]{
+	\left\{\begin{aligned}#1\end{aligned}\right.}
+%\date{}
+
+	\newcommand{\xd}{\\[7pt]}
+	\newcommand{\pth}[2]{\displaystyle\frac{#1}{#2}}
+
+\begin{document}
+
+%\maketitle
+%------------------------------------
+\begin{titlepage} 
+\begin{center}
+{\large\bf TRƯỜNG ĐẠI HỌC SƯ PHẠM TP HỒ CHÍ MINH}\\
+{\large\bf KHOA TOÁN-TIN} \\
+{---------------------o0o--------------------}\\[40pt]
+\begin{center}
+\includegraphics[scale=0.5]{logo.png}
+\end{center}
+\vskip 3cm
+{\Huge\bf \textbf{TOPOLOGY}}\\
+\vskip 2cm
+\begin{center}
+\begin{tabular}{r l}
+Giảng viên hướng dẫn:&{\bf TS. Nguyễn Ngọc Trọng}\\[0.5cm]
+Thực hiện: &Điền Võ Thế Vinh, Đinh Minh Hải, Phạm Thị Phương Thảo
+\end{tabular}
+\end{center}
+\vfill
+{\today}
+\end{center}
+\end{titlepage}
+\newpage
+ \tableofcontents
+ \newpage
+\section{Không gian metric và dãy hội tụ}%----------------Bai1
+\subsection{Định nghĩa không gian metric}
+\begin{definition}
+Cho $X$ là một tập hợp bất kỳ. Xét ánh xạ $d: X \times X \to \mathbb{R}$ thỏa mãn các điều kiện sau đây
+\begin{enumerate}
+    \item $d(x,y) \ge 0 \quad \forall x,y \in X$.
+    \item $d(x,y)=0 \Leftrightarrow x=y$.
+    \item \textbf{Đối xứng:} $d(x,y)=d(y,x) \quad \forall x,y \in X$.
+    \item \textbf{Bất đẳng thức tam giác:}
+    $$d(x,z) \le d(x,y) + d(y,z) \quad \forall x,y,z \in X.$$
+\end{enumerate}
+Ta gọi $d$ là \textbf{metric} (khoảng cách) trên $X$ và $(X,d)$ được gọi là \textbf{không gian metric}.
+\end{definition}
+\begin{proposition}
+Cho không gian metric $(X,d)$. Ta có
+\begin{enumerate}[i)]
+    \item $|d(x,y)-d(x,z)| \le d(y,z)$.
+    \item $|d(x,y)-d(a,b)| \le d(x,a)+d(y,b)$.
+\end{enumerate}
+\end{proposition}
+\begin{proposition}
+Các không gian sau là không gian metric
+\begin{enumerate}
+    \item $X=\mathbb{R}, \; d(x,y)=|x-y|$.
+    \item $X=\mathbb{C}, \; d(x,y) = |x-y|$.
+    \item $ X=\mathbb{R}^m$ với các metric $d,{d_1},{d_\infty}$ sau đây là các không gian metric
+    \begin{itemize}
+        \item $d(x,y) = {\left( {\sum\limits_{i = 1}^m {\mathop {\left| {{x_i} - {y_i}} \right|}\nolimits^2 } } \right)^{\frac{1}{2}}}$.
+        \item $d_1(x,y) =\sum\limits_{i = 1}^m {\left| {{x_i} - {y_i}} \right|}$.
+        \item $d_\infty(x,y) = \mathop {\max }\limits_{1 \le i \le m} | {x_i} - {y_i}|$.
+     \end{itemize}
+  Trong đó $x=(x_1,x_2,...,x_n) ; y=(y_1,y_2,...,y_m)$
+  \item $C[a,b] = \{f:[a,b] \to \mathbb{R}|f\; \text{liên tục}\}$ với metric $d, d_1$ là các không gian metric.
+  \begin{itemize}
+      \item \textbf{Metric hội tụ đều:} $d(x,y)=\mathop {\max }\limits_{t \in {\rm{[}}a,b{\rm{]}}} \left| {x(t) - y(t)} \right|$.
+      \item \textbf{Metric tích phân:} $d_1(x,y)=\displaystyle\int\limits_a^b|{x(t)-y(t)}|dt$.
+  \end{itemize}
+  \item Cho $X$ là một tập hợp bất kì với metric
+  \begin{align*}
+  d(x,y)=
+      \begin{cases}
+        1, \quad x\neq y\\
+        0, \quad x=y
+      \end{cases}
+  \end{align*}
+là một không gian metric. Khi đó $d$ gọi là metric rời rạc và ($X,d$) là không gian metric rời rạc.
+  \item Cho $(X,d)$ là không gian metric $A\subset X$. Xét ánh xạ thu hẹp $d_A=d_{|A\times A}$ nghĩa là 
+  $$d_A(a,b)=d(a,b)\quad \forall a,b \in A.$$
+  Ta gọi $d_A$ là metric cảm sinh bởi d trên A. Khi đó $(A,\mathrm{d_A})$ là không gian metric và gọi là không gian metric con của $(X,d)$.
+\end{enumerate}
+\end{proposition}
+\subsection{Dãy hội tụ}
+\begin{definition}
+Trên không gian metric $(X,d)$ ta nói dãy $(x_n)_n$ hội tụ đến A (kí hiệu $\lim\limits_{n \to \infty} x_n=a$ hoặc $xn\to a$) nếu:
+$$\lim\limits_{x\to\infty} d(x_n,a)=0$$
+$$\Leftrightarrow\forall \epsilon >0,\exists n_0 \in \mathbb{N},\forall n \ge n_0,d(x_n,a)< \varepsilon$$
+\end{definition}
+\begin{definition}
+Giới hạn một dãy trong không gian metric nếu có là duy nhất
+\end{definition}
+\begin{definition}
+Nếu $xn \to a, yn\to b$ trong $(X,d)$ thì:
+$$\lim\limits_{n\to\infty} d({x_n,y_n})=d(a,b)$$
+\end{definition}
+\begin{definition}
+Nếu dãy $(x_n)_n$ hội tụ đến $x\in X$ thì mọi dãy con của nó cũng sẽ hội tụ đến X.
+\end{definition}
+\begin{definition}
+Sự hội tụ trên $\mathbb{R}^m$ là sự hội tụ theo toạ độ. Nghĩa là cho dãy $(x_n)_n$ trong $\mathrm{R}^m$ trong đó $x_n=(x_n^1,x_n^2,...,x_n^m) \in \mathrm{R}^m$ và $a=(a_1,a_2,...,a_m) \in \mathbb{R}^m$
+Khi đó $x_n \to a$ trên $\mathbb{R}^m$ nếu và chỉ nếu $\lim\limits_{n\to\infty}x_n^k=a_k \forall k=1,2,...,m$
+\end{definition}
+\begin{lemma}
+Trên $X=C[a,b]$ xét metric:
+$$d(x,y)=\mathop {\max }\limits_{t \in {\rm{[}}a,b{\rm{]}}} \left| {x(t) - y(t)} \right|$$
+  $$\mathrm{d_1}(x,y)=\int\limits_a^b|{x(t)-y(t)}|dt$$
+  \textbf{Nếu dãy $(x_n)_n$ hội tụ về z theo metric d thì nó cũng hội tụ về z theo metric $d_1$} \\
+  \textbf{Chú ý} \textit{Sự hội tụ theo metric d chính là sự hội tụ đều của dãy hàm liên tục. Do đó metric d được gọi là metric hội tụ đều.}
+\end{lemma}
+\begin{exercise}
+Trên $X= C[0,1]$ xét metric 
+  $$\mathrm{d_1}(x,y)=\int\limits_0^1|{x(t)-y(t)}|dt$$
+ Cho dãy $(x_n)_n \subset X $ cho bởi:
+ \begin{subnumcases}{x_n(t)=}
+-$nt$+1 & $t\in [0,\frac{1}{n}]$\\
+0 & $t \in (\frac{1}{n},1]$
+\end{subnumcases}
+Chứng minh rằng $\lim\limits_{n\to\infty} x_n =0$ trên $(X,\mathrm{d_1})$\\
+\begin{proof}
+\begin{align*}
+  \mathrm{d_1}(x_n,0) &= \int\limits_0^1|x_n(t)|dt\\
+                      &= \int\limits_0^\frac{1}{n}|x_n(t)dt +\int\limits_\frac{1}{n}^1|x_n(t)|dt\\
+                      &=\int\limits_0^\frac{1}{n}(1-nt)dt\\
+                     &=\frac{1}{2n} \\
+    \textbf{Do đó  }  \lim\mathrm{d_1}(x_n,0)=\lim\limits_{n\to\infty}\frac{1}{2n}= 0\\
+\textbf{Vậy}\lim\limits_{n\to\infty}\mathrm{d_1}(x_n,0)=0 \text{ trên }  (X,d)
+\end{align*}
+\end{proof}
+\end{exercise}
+
+\newpage
+\section{Vị trí tương đối giữa điểm và tập con. Tập mở, tập đóng và tập trù mật}%----------------Bai2
+%Hai start in here
+\subsection{Quả cầu}
+\begin{definition}
+    Cho không gian metric $(X,d)$ và $z \in X, r>0$. Ta gọi\xd
+    $B(z,r) = {x \in X|d(x,z) < r}$ là quả cầu tâm $z$ bán kính $r$\xd
+    $\bar{B}(z,r) = {x \in X|d(x,z) < r}$ là quả cầu đóng tâm $z$ bán kính $r$
+\end{definition}
+\begin{lemma}
+    Trên $\mathbb{R}$ với metric thông thường
+    \begin{align*}
+        B(z,r)={x\in \mathbb{R}||x-z| < r} = (z - r,z + r)\xd
+        \bar{B}(z,r)={x\in \mathbb{R}||x-z| \neq r} = (z - r,z + r)
+    \end{align*}
+\end{lemma}
+\begin{lemma}
+    Trên $X$ với metric rời rạc\xd
+    Với $r < 1$
+    \begin{align*}
+        B(z,r)={x\in \mathbb{R}|d(x,z) < r} = {{z}}\xd
+        \bar{B}(z,r)={x\in \mathbb{R}|d(x,z) \neq r} = {{z}}
+    \end{align*}
+    Với $r = 1$
+    \begin{align*}
+        B(z,r)={x\in \mathbb{R}|d(x,z) < r} = {{z}}\xd
+        \bar{B}(z,r)={x\in \mathbb{R}|d(x,z) \neq r} = X
+    \end{align*}
+\end{lemma}
+%Hai end in here
+Cho không gian metric $X$ và $A \subset X$
+\begin{definition}
+A mở khi và chỉ khi $\forall a \in A, \exists r>0: B(a,r) \subset A$. $A$ gọi là đóng nếu $X \backslash A$ là mở.
+\end{definition}
+\textbf{Chú ý.} Tập $A$ mở tương đương $X A$ đóng.
+\begin{theorem}
+Hai mệnh đề sau là tương đương
+\begin{enumerate}
+    \item $A$ đóng.
+    \item $\forall (x_n)_n \subset A$, nếu $x_n \to x \in X$ thì $x \in A$. (không phải xét một dãy bất kỳ rồi chứng minh nó hội tụ về $X$ mà là chọn một dãy đã hội tụ về $X$ rồi, nó là một giả thiết. \end{enumerate}
+\end{theorem}
+\begin{proposition}
+\begin{enumerate}
+    \item Tập $A$ là mở nếu $A=\overset{\circ}{A} \Longleftrightarrow A \cap \partial A= \varnothing$.
+    \item Tập $A$ là đóng nếu $A=\bar{A} \Longleftrightarrow \partial A \subset A$.
+    \item $\varnothing, X$ vừa mở vừa đóng.
+    \item Quả cầu mở là tập mở, quả cầu đóng là tập đóng.
+    \item Tập $\{a\}, a \in X$ luôn là tập đóng.
+    \item Hợp tùy ý các tập mở là tập mở.
+\end{enumerate}
+\end{proposition}
+\begin{proposition}
+Trên $\mathbb{R}$ với metric thông thường. Tập $(a,b)$ là mở, tập $(a, +\infty)$ mở, tập $[a,b]$ là đóng, tập $[a, +\infty]$ là đóng. Tập $[a,b]$ là không mở, không đóng.
+\end{proposition}
+\begin{proof}[Lời giải]
+
+\end{proof}
+\begin{exercise}
+Cho $A$ là tập mở và $B$ là tập tùy ý của một không gian metric $X$. Chứng minh rằng $$A \cap \overline{B} \subset \overline{A \cap B.}$$
+\end{exercise}
+\begin{proof}[Lời giải]
+Lấy $x \in A \cap \overline{B}$. Vậy $x \in A$ và $\forall r>0: B(x,r) \cap B \neq \varnothing. (*)$\xd
+Vì $A$ mở nên tồn tại $\epsilon>0: B(x,\epsilon) \subset A.$\xd
+Ta chứng minh rằng $\forall r>0: B(x,r) \cap (A \cap B) \neq \varnothing.$\xd
+\textbf{Trường hợp 1.} $r\le \epsilon$. Ta có $B(x,r) \subset B(x,\epsilon) \subset A$.\xd
+Ta có $B(x,r) \cap B \subset B(x,r) \subset A$. Vậy $B(x,r) \cap (A \cap B) = B(x,r) \cap B \neq \varnothing$. (do $(*)$).\xd
+\textbf{Trường hợp 2.} $r>\epsilon$. Ta có $B(x,\epsilon) \subset B(x,r)$. Vậy $B(x,\epsilon) \subset A \cap B(x,r).$\xd
+Do $(*)$ ta có $B(x,\epsilon) \cap B \neq \varnothing$. Nên tồn tại $z \in B(x,\epsilon) \cap B$.\xd
+Vậy $z \in A \cap B(x,r) \cap B$. Do đó $B(x,r) \cap (A \cap B) \neq \varnothing$.
+Vậy $x \in \overline{A \cap B}.$
+\end{proof}
+\subsection{Hàm khoảng cách}
+Ta gọi khoảng cách tù $x \in X$ đến tập $A$ là $\mathrm{d(x, A)}=\inf_{y\in A}\mathrm{d(x,y)}$.\xd
+Đường kính của tập $A$ là $\delta(A)=\sup_{x,y \in A}\mathrm{d(x,y)}.$\xd
+Khoảng cách giữa hai tập $A$ và $B$ là
+$$\mathrm{d(A,B)}=\inf_{x\in A, y \in B}\mathrm{d(x,y)}=\inf_{x\in A}\mathrm{d(x,B)}=\inf_{y\in B}\mathrm{d(y,A)}.$$
+\begin{proposition}
+Ta có các tính chất sau
+\begin{enumerate}
+    \item $A \subset B \Rightarrow \delta(A) \le \delta(B)$ và $d(x,B) \le d(x,A), \forall x \in X$.
+    \item $|\mathrm{d(x,A)}-\mathrm{d(y,A)}| \le \mathrm{d(x,y)}, \forall x, y \in X$.
+    \item $\delta(\overline{A})=\delta(A)$.
+    \item $\mathrm{d(x,A)}=0 \Leftrightarrow x \in \overline{A}.$
+\end{enumerate}
+\end{proposition}
+\begin{exercise}
+Chứng minh Mệnh đề.
+\end{exercise}
+\subsection{Tập trù mật}
+Tập $A \subset X$ gọi là trù mật trong $X$ nếu $\overline{A}=X$.
+\begin{proposition}
+Cho $X$ là không gian metric và $A \subset X$. Các mệnh đề sau là tương đương
+\begin{enumerate}
+    \item $A$ trù mật trong $X$.
+    \item $\forall x \in X, \forall r>0: B(x,r) \cap A \neq \varnothing$.
+    %Hai start in here
+    \item $\forall x \in X, \exists (x_n)_n \subset A: x_n \rightarrow x$
+\end{enumerate}
+\end{proposition}
+Không gian $X$ được gọi là khả li(tách được) nếu tồn tại một tập con không quá đếm được trù mật.\\[7pt]
+Tập con $A$ của không gian metric $X$ gọi là không đâu trù mật nếu phần trong của bao đóng của $A$ rỗng.\\[7pt]
+Ví dụ: $\mathbb{R}^m$ là khả li vì tập đếm được $\mathbb{Q} ^m$ trù mật trong $\mathbb{R}^m$\\[7pt]
+Họ các tập $(V_\alpha)_{\alpha \in I}$ gọi là phủ của $A$ nếu $A \subset \cup_{a\in I}V_\alpha$.\xd
+Nếu $V_\alpha$ mở $\forall \alpha \in I$ thì ta nói $(V_\alpha)_{\alpha \in I}$ là phủ mở.\xd
+Lấy $K \subset I$ và $A \subset \cup_{\alpha \in K}$ gọi là phủ con của  $(V_\alpha)_{\alpha \in I}$.\xd
+Lấy $K$ không quá đếm được  và $K\subset I$ thì $(V_\alpha)_{\alpha \in K}$ gọi là phủ con không quá đếm được của $(V_\alpha)_{\alpha \in I}$.
+
+\begin{proposition}
+Ta có các tính chất sau
+\begin{enumerate}
+    \item $C[a,b]$ với metric hội tụ đều là khả li.
+    \item Mọi phủ mở của không gian metric khả li đều có một phủ con không quá đếm được.
+    \item Tập $\mathbb{Z}^m$ là không đâu trù mật trong $\mathbb{R}^m$, tức là $(\overline{\mathbb{Z}^m})^0 = \emptyset$ 
+\end{enumerate}
+\end{proposition}
+\newpage
+\section{Ánh xạ liên tục}
+\end{document}
